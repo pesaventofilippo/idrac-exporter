@@ -24,6 +24,7 @@ class IDRAC:
 
         fans = {f["Name"]: f["Reading"] for f in data["Fans"]}
         temperatures = {t["Name"]: t["ReadingCelsius"] for t in data["Temperatures"]}
+        temperatures = {k.replace(" Temp", ""): v for k, v in temperatures.items}
 
         return {
             "fans": fans,
