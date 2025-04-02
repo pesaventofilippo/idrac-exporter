@@ -14,7 +14,7 @@ class IDRAC:
         try:
             async with session.get(url, auth=self.auth, ssl=False, timeout=10) as response:
                 return await response.json()
-        except requests.RequestException:
+        except Exception:
             return None
 
     async def get_thermal_data(self, session: aiohttp.ClientSession) -> dict[str, dict[str, int]]:
@@ -24,7 +24,7 @@ class IDRAC:
 
         fans = {f["Name"]: f["Reading"] for f in data["Fans"]}
         temperatures = {t["Name"]: t["ReadingCelsius"] for t in data["Temperatures"]}
-        temperatures = {k.replace(" Temp", ""): v for k, v in temperatures.items}
+        temperatures = {k.replace(" Temp", ""): v for k, v in temperatures.items()}
 
         return {
             "fans": fans,
