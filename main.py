@@ -39,8 +39,12 @@ async def update_metrics():
     for host, data in results:
         if data["thermal"]:
             for fan, speed in data["thermal"]["fans"].items():
+                if speed is None:
+                    continue
                 metrics["fan_speed"].labels(host=host, fan=fan).set(speed)
             for sensor, temperature in data["thermal"]["temperatures"].items():
+                if temperature is None:
+                    continue
                 metrics["sensor_temperature"].labels(host=host, sensor=sensor).set(temperature)
 
         if data["power"]:
