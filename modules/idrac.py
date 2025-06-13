@@ -1,6 +1,5 @@
 import aiohttp
 import urllib3
-import requests
 
 
 class IDRAC:

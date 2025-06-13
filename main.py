@@ -1,12 +1,12 @@
 import aiohttp
 import asyncio
 from modules.utils import env
-import prometheus_client as prom
 from modules.idrac import IDRAC
+import prometheus_client as prom
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 idracs = [
-    IDRAC(i["host"], i["username"], i["password"])
+    IDRAC(i["host"], i["user"], i["password"])
     for i in env.IDRAC_HOSTS
 ]
 
